@@ -13,7 +13,7 @@
 typedef struct{
 	struct node*	forward_node;
 	struct node*	backwards_node;
-	void*	data;			//mm_t in our case
+	void*	node_data;			//mm_t in our case
 	bool	free;
 	int	node_number;
 	int	size_available;

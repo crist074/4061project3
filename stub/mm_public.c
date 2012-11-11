@@ -19,7 +19,12 @@ double comp_time (struct timeval times, struct timeval timee)
 
 
 
-//allocate all memory, return -1 on failure
+/* allocate all memory, return -1 on failure
+	- clairify difference between mm_t and node_data
+	- malloc to include the MM with node_data
+	- partition size?
+	- ingeneral work on mm_t
+*/
 int mm_init (mm_t *MM, int tsz)
 {
 	node* header;
@@ -59,11 +64,13 @@ int mm_init (mm_t *MM, int tsz)
 			x->free = true;
 			x->node_number = i;
 			x->size_available = tsz - 1;
-
 		}
 
-	}//end for()
+		//Set last nodes forward_node to NULL
+		if(i == tsz)
+			x->forward_node = NULL;
 
+	}//end for()
 
 }//end mm_init()
 
