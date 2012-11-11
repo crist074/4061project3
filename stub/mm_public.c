@@ -22,9 +22,47 @@ double comp_time (struct timeval times, struct timeval timee)
 //allocate all memory, return -1 on failure
 int mm_init (mm_t *MM, int tsz)
 {
-	//make your double linked list
-	
+	node* header;
+	int i;
 
+	//make your double linked list
+	for(i = 0; i < tsz; i++)
+	{
+		//first node
+		if(i == 0)
+		{
+			//create node
+			node* x = (node*) malloc(sizeof(node));
+
+			//save the header, fill in other initial information
+			header = x;
+			x->backwards_node = NULL;
+			x->free = true;
+			x->node_number = i;
+			x->size_available = tsz;
+		}
+
+		//all other nodes
+		else
+		{
+			//save previous node
+			node* tmp = x;
+
+			//create node
+			node* x = (node*) malloc(sizeof(node));
+
+			//finish initial data for previous node
+			tmp->forward_node = &x;
+
+			//fill in initial information
+			x->backwards_node = &tmp;
+			x->free = true;
+			x->node_number = i;
+			x->size_available = tsz - 1;
+
+		}
+
+	}//end for()
 
 
 }//end mm_init()

@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #define INTERVAL 0
 #define INTERVAL_USEC 800000
@@ -10,9 +11,12 @@
 #define how 8
 
 typedef struct{
-	void* address;
-	int size;
-	int flag; //We used flag to indicate whether a chunk is free or not. You can however ignore that and use another solution.
+	struct node*	forward_node;
+	struct node*	backwards_node;
+	void*	data;			//mm_t in our case
+	bool	free;
+	int	node_number;
+	int	size_available;
 } node;
 
 typedef struct {
