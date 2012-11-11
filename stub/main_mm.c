@@ -24,3 +24,17 @@ int main (int argc, char **argv)
 
 	fprintf (stderr, "MM time took %f msec\n",comp_time (times, timee)/1000.0);
 }
+
+
+//****************************************************************************************************
+
+
+/*
+
+int mm_init (mm_t *MM, int tsz);		//allocate all memory, return -1 on failure
+void* mm_get (mm_t *MM, int neededSize);	//get a chunch of memory (pointer to void) of size sz, NULL on failure
+void mm_put (mm_t *MM, void *chunk);		//give back chunck to the memory manager, don't forget to free!
+void  mm_release (mm_t *MM);			//release all memory bac to the system
+double comp_time (struct timeval times, struct timeval timee);
+
+*/
