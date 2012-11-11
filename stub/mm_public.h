@@ -20,15 +20,15 @@ typedef struct{
 } node;
 
 typedef struct {
-	void *stuff;
-	node *free_list;
-	int tsz; 
+	node* header;
+	int tsz;
 	int partitions;
-	int max_avail_size; 
+	int number_of_free_nodes;
+	int largest_free_partition; 
 } mm_t;
 
 int mm_init (mm_t *MM, int tsz);		//allocate all memory, return -1 on failure
 void* mm_get (mm_t *MM, int neededSize);	//get a chunch of memory (pointer to void) of size sz, NULL on failure
-void mm_put (mm_t *MM, void *chunk);		//give back chunck to the memory manager, don't forget to free!
+void mm_put (mm_t *MM, void *chunk);		//give back chunck to the memory manager, don't free it though!
 void  mm_release (mm_t *MM);			//release all memory bac to the system
 double comp_time (struct timeval times, struct timeval timee);

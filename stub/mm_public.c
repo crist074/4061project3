@@ -15,20 +15,22 @@ double comp_time (struct timeval times, struct timeval timee)
 	return ((unsigned long)(elap));
 }
 
-/* Write these ... */
-
-
+//******************************************************************************************
 
 /* allocate all memory, return -1 on failure
-	- clairify difference between mm_t and node_data
-	- malloc to include the MM with node_data
-	- partition size?
-	- ingeneral work on mm_t
+	- find out where it can fail and return -1
+	- what does it return on success?
 */
-int mm_init (mm_t *MM, int tsz)
+int mm_init (mm_t* MM, int tsz)
 {
-	node* header;
+	node* headerNode;
 	int i;
+
+	MM->header = headerNode;
+	MM->tsz = tsz;
+	MM->partitions = tsz;
+	MM->number_of_free_nodes;
+	MM->largest_free_partition;
 
 	//make your double linked list
 	for(i = 0; i < tsz; i++)
@@ -37,57 +39,64 @@ int mm_init (mm_t *MM, int tsz)
 		if(i == 0)
 		{
 			//create node
-			node* x = (node*) malloc(sizeof(node));
+			node* newNode = (node*) malloc(sizeof(node));
 
 			//save the header, fill in other initial information
-			header = x;
-			x->backwards_node = NULL;
-			x->free = true;
-			x->node_number = i;
-			x->size_available = tsz;
+			header = newNode;
+			newNode->backwards_node = NULL;
+			newNode->free = true;
+			newNode->node_number = i;
+			newNode->size_available = tsz;
 		}
 
 		//all other nodes
 		else
 		{
 			//save previous node
-			node* tmp = x;
+			node* previousNode = newNode;
 
 			//create node
-			node* x = (node*) malloc(sizeof(node));
+			node* newNode = (node*) malloc(sizeof(node));
 
 			//finish initial data for previous node
-			tmp->forward_node = &x;
+			previousNode->forward_node = &newNode;
 
 			//fill in initial information
-			x->backwards_node = &tmp;
-			x->free = true;
-			x->node_number = i;
-			x->size_available = tsz - 1;
+			newNode->backwards_node = &previousNode;
+			newNode->free = true;
+			newNode->node_number = i;
+			newNode->size_available = tsz - 1;
 		}
 
 		//Set last nodes forward_node to NULL
-		if(i == tsz)
-			x->forward_node = NULL;
+		if(i == tsz - 1)
+			newNode->forward_node = NULL;
 
 	}//end for()
 
 }//end mm_init()
 
+//******************************************************************************************
 
 //get a chunch of memory (pointer to void) of size sz, NULL on failure
 void* mm_get (mm_t *MM, int neededSize)
 {
+	//check if 
+
+
+
 
 }//end mm_get()
 
+//******************************************************************************************
 
-//give back chunck to the memory manager, don't forget to free!
+//give back chunck to the memory manager, don't free it though!
 void mm_put (mm_t *MM, void *chunk)
 {
 
 }//end mm_get()
 
+//******************************************************************************************
 
 //release all memory bac to the system
 void mm_release (mm_t *MM)
