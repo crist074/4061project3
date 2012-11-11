@@ -10,10 +10,13 @@ int main (int argc, char **argv)
 
 
 	j = gettimeofday (&times, (void *)NULL);
-	for (i=0; i<how; i++) {
+
+	for (i=0; i<how; i++)
+	{
 		b[i] = (void*)malloc (i+1);
 		free (b[i]);
 	}
+
 	j = gettimeofday (&timee, (void *)NULL);
 	fprintf (stderr, "MALLOC/FREE time took %f msec\n",
 		comp_time (times, timee)/1000.0);

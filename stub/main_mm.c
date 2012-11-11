@@ -8,13 +8,19 @@ int main (int argc, char **argv)
 	mm_t MM;
 
 	j = gettimeofday (&times, (void *)NULL);
+
+	//if mm_init fails...
 	if (mm_init(&MM, 56) < 0)
 		perror("mm_init");
-	for (i=0; i< how; i++) { 
+
+	for (i=0; i< how; i++) { 	//how is in mm_public.h defined as 8
 		chunk = mm_get(&MM, i+1);
 		mm_put(&MM,chunk);
 	}
+
 	mm_release(&MM);
+
 	j = gettimeofday (&timee, (void *)NULL);
+
 	fprintf (stderr, "MM time took %f msec\n",comp_time (times, timee)/1000.0);
 }
