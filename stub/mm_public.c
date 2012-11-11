@@ -23,14 +23,14 @@ double comp_time (struct timeval times, struct timeval timee)
 */
 int mm_init (mm_t* MM, int tsz)
 {
-	node* headerNode;
+	//node* headerNode;
 	int i;
 
-	MM->header = headerNode;
+	//MM->header = headerNode;
 	MM->tsz = tsz;
 	MM->partitions = tsz;
-	MM->number_of_free_nodes;
-	MM->largest_free_partition;
+	MM->number_of_free_nodes = tsz;
+	MM->largest_free_partition = tsz;
 
 	//make your double linked list
 	for(i = 0; i < tsz; i++)
@@ -42,7 +42,7 @@ int mm_init (mm_t* MM, int tsz)
 			node* newNode = (node*) malloc(sizeof(node));
 
 			//save the header, fill in other initial information
-			header = newNode;
+			MM->header = newNode;
 			newNode->backwards_node = NULL;
 			newNode->free = true;
 			newNode->node_number = i;
@@ -65,7 +65,7 @@ int mm_init (mm_t* MM, int tsz)
 			newNode->backwards_node = &previousNode;
 			newNode->free = true;
 			newNode->node_number = i;
-			newNode->size_available = tsz - 1;
+			newNode->size_available = tsz - i;
 		}
 
 		//Set last nodes forward_node to NULL
@@ -81,7 +81,11 @@ int mm_init (mm_t* MM, int tsz)
 //get a chunch of memory (pointer to void) of size sz, NULL on failure
 void* mm_get (mm_t *MM, int neededSize)
 {
-	//check if 
+	//check if we have a large enough free space for new partition
+	if(MM->largest_free_partition < neededSize)
+	{
+		return NULL;
+	}
 
 
 
